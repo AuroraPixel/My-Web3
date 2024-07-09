@@ -1,0 +1,12 @@
+[
+  {
+    "text": "Solidity",
+    "link": "/solidity/",
+    "activeMatch": "/solidity/"
+  },
+  {
+    "text": "Me",
+    "link": "/me/",
+    "activeMatch": "/me/"
+  }
+]

@@ -1,0 +1,11 @@
+[
+    "index",
+    {
+        "type": "dir",
+        "name": "beginner",
+        "label": "入门",
+        "collapsible": true,
+        "collapsed": true,
+        "context":"测试"
+    }
+]
