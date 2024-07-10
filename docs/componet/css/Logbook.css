@@ -1,23 +1,21 @@
 .logbook-container {
-  font-family: 'Courier New', Courier, monospace;
-  background-color: rgba(55, 46, 46, 0.555); /* 背景颜色设置为白色且半透明 */
-  color: #b6e9d7; /* 调整字体颜色 */
+  /* font-family: 'Courier New', Courier, monospace; */
+  background-color: rgba(127, 163, 255, 0.16); /* 背景颜色设置为白色且半透明 */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
   max-width: 600px;
   backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* 添加边框以增强磨砂效果 */
 }
 
 .logbook-title {
   font-size: 24px;
   font-style: italic; /* 设置斜体 */
   font-weight: bold; /* 设置加粗 */
-  border-bottom: 2px solid #444; /* 调整下划线颜色 */
+  border-bottom: 1px solid rgba(68, 68, 68, 0.2); /* 调整下划线颜色 */
   padding-bottom: 5px;
   margin-bottom: 10px;
-  color: #ffffff; /* 调整标题颜色 */
+  color: #0077ff; /* 调整标题颜色 */
 }
 
 .task-list {
@@ -31,14 +29,15 @@
   margin-bottom: 10px;
 }
 
-.task-item input[type="checkbox"] {
+.task-item input[type='checkbox'] {
   margin-right: 10px;
-  accent-color: #007acc; /* 调整勾选框颜色 */
+  accent-color: #0077ff; /* 调整勾选框颜色 */
 }
 
 .task-item.completed {
   text-decoration: line-through;
-  color: #ffffff;
+  opacity: 0.5;
+  /* color: #ffffff; */
 }
 
 .task-item span {
