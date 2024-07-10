@@ -1,9 +1,8 @@
 [
-    "index",
     {
         "type": "dir",
-        "name": "beginner",
-        "label": "入门",
+        "name": "2024",
+        "label": "2024",
         "collapsible": true,
         "collapsed": true
     }

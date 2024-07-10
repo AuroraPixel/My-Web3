@@ -1,5 +1,10 @@
 [
   {
+    "text": "Daily",
+    "link": "/daily/2024/0710",
+    "activeMatch": "/daily/"
+  },
+  {
     "text": "Solidity",
     "link": "/solidity/",
     "activeMatch": "/solidity/"
