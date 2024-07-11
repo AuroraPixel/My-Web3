@@ -7,8 +7,8 @@ export default defineConfig({
   description: 'Personal learning web3 record.',
   icon: '/galaxy.png',
   logo: {
-    light: '/galaxy.png',
-    dark: '/galaxy.png',
+    light: '/web3.png',
+    dark: '/web3.png',
   },
   themeConfig: {
     socialLinks: [
