@@ -5,10 +5,10 @@ export default defineConfig({
   root: path.join(__dirname, 'docs'),
   title: 'My-Web3',
   description: 'Personal learning web3 record.',
-  icon: '/rspress-icon.png',
+  icon: '/galaxy.png',
   logo: {
-    light: '/rspress-light-logo.png',
-    dark: '/rspress-dark-logo.png',
+    light: '/galaxy.png',
+    dark: '/galaxy.png',
   },
   themeConfig: {
     socialLinks: [

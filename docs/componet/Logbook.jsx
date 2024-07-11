@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './css/Logbook.css';
 
-const Logbook = ({ children }) => {
+const Logbook = ({ children, describe }) => {
   return (
     <div className="logbook-container">
-      <h1 className="logbook-title">Daily Log</h1>
+      <h1 className="logbook-title">{describe ? describe : 'Daily Log'}</h1>
       <ul className="task-list">
         {React.Children.map(children, (child, index) => {
           if (child.type === TaskItem) {

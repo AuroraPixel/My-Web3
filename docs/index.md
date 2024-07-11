@@ -13,10 +13,14 @@ hero:
       text: Github
       link: https://github.com/AuroraPixel
   image:
-    src: /rspress-icon.png
+    src: /galaxy.png
     alt: My-Web3 Logo
 features:
   - title: Solidity入门
-    details: 入门从0到1开始学习Solidity
+    details: 这里记录着我入门从0到1开始学习Solidity
     icon: 🏃🏻‍♀️
+  - title: 日常记录
+    details: 记录每日代办事项，同时分享每日有趣的事情或者idea
+    icon: 📝
+
 ---
