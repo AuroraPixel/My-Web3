@@ -1,0 +1,300 @@
+import Logbook  from '../../componet/Logbook';
+
+# 07月15号
+
+## 日程列表 📅
+
+<Logbook>
+      <Logbook.TaskItem isComplete={true}>背诵20个英语单词</Logbook.TaskItem>
+      <Logbook.TaskItem isComplete={false}>学习solidity基础第三章</Logbook.TaskItem>
+      <Logbook.TaskItem isComplete={true}>Java面试题目</Logbook.TaskItem>
+</Logbook>
+
+## 📘 Java面试题目
+
+## ❓ 题目一
+
+已知系统中实现了⼀系列分⻚接⼝，形如：
+
+```Java
+RpcResponse<List<MetricXxxDTO> listMetrics(MetricXxxQuery query);
+RpcResponse<List<MetricYyyDTO> listMetrics(MetricYyyQuery query);
+RpcResponse<List<MetricZzzDTO> listMetrics(MetricZzzQuery query);
+```
+其中：
+
+```Java
+@Data
+class RpcResponse<T> {
+private Boolean success;
+private T data;
+// 分⻚令牌，如果返回值不为空，则通过该令牌能够执⾏下⼀次查询
+private byte[] token;
+}
+@Data
+abstract class BaseMetericQuery {
+private byte[] token;
+}
+class MetricXxxQuery extends BaseMetericQuery {
+// 查询字段
+}
+class MetricYyyQuery extends BaseMetericQuery {
+// 查询字段
+}
+class MetricZzzQuery extends BaseMetericQuery {
+// 查询字段
+}
+```
+
+由于单次分⻚接⼝调⽤仅能返回最多 200 条数据，为了获取查询范围内的全量数据。
+请实现⾃动分⻚的静态⽅法 MetricQueryPager.autoPaged 。
+
+### 📝 我的答案
+
+```Java
+import java.util.ArrayList;
+import java.util.List;
+
+public class MetricQueryPager {
+
+    public static <T, Q extends BaseMetericQuery> List<T> autoPaged(MetricQueryExecutor<T, Q> executor, Q query) {
+        List<T> allData = new ArrayList<>();
+        byte[] token = null;
+
+        do {
+            query.setToken(token);
+            RpcResponse<List<T>> response = executor.execute(query);
+
+            if (response.getSuccess() && response.getData() != null) {
+                allData.addAll(response.getData());
+                token = response.getToken();
+            } else {
+                token = null; // 停止分页
+            }
+        } while (token != null && token.length > 0);
+
+        return allData;
+    }
+
+    // 定义一个函数式接口，用于执行不同类型的查询
+    @FunctionalInterface
+    public interface MetricQueryExecutor<T, Q> {
+        RpcResponse<List<T>> execute(Q query);
+    }
+}
+```
+### 📋 使用方法:
+
+```Java
+public class Main {
+    public static void main(String[] args) {
+        MetricXxxQuery query = new MetricXxxQuery();
+        List<MetricXxxDTO> allMetrics = MetricQueryPager.autoPaged(
+            q -> listMetrics((MetricXxxQuery) q),
+            query
+        );
+        // 处理allMetrics
+    }
+
+    public static RpcResponse<List<MetricXxxDTO>> listMetrics(MetricXxxQuery query) {
+        // 实现实际的查询逻辑
+        // 这里可以调用实际的RPC接口
+        return new RpcResponse<>();
+    }
+}
+```
+
+### 💡 设计思路
+
+- 泛型方法：`autoPaged` 方法使用泛型 `<T, Q>` 来适应不同的 `DTO` 和 `Query` 类型。
+- 分页处理：通过检查返回结果中的分页令牌`token`，来决定是否继续执行后续查询。
+- 函数式接口：定义了一个函数式接口 `MetricQueryExecutor`，用于传递不同的查询执行逻辑。这使得 `autoPaged` 方法可以与各种类型的查询配合使用。
+
+
+## ❓ 题目二
+根据电⽹的负荷变化情况，每天 24 ⼩时会划分为尖（Critical Peak）、峰（Peak）、平
+（Shoulder）、⾕（Off Peak）多个时段，各时段会采⽤不同的电价。国家电⽹会按⽉调整时段与相
+应的电价。某个⽉的时段与电价如下所⽰：
+
+```json
+1 00:00:00〜06:00:00 | ⾕ | ¥0.31
+2 06:00:00〜08:00:00 | 平 | ¥0.76
+3 08:00:00〜12:00:00 | 峰 | ¥0.92
+4 12:00:00〜14:00:00 | 尖 | ¥1.20
+5 14:00:00〜15:00:00 | 峰 | ¥0.92
+6 15:00:00〜18:00:00 | 平 | ¥0.76
+7 18:00:00〜21:00:00 | 峰 | ¥0.92
+8 21:00:00〜22:00:00 | 平 | ¥0.76
+9 22:00:00〜00:00:00 | ⾕ | ¥0.31
+```
+
+已知有⼀款 100 kWh 容量（capacity），50 kW 标准功率（standardPower）的充电宝，通过在⾕段
+充电（charge）和峰段放电（discharge）的⽅式，能够赚取电费差价。
+注：充电宝充电与放电功率的标准功率均为 50 kW，即按照标准功率，两个⼩时从零电量充满或满电
+量放完。
+
+```java
+/**
+* 峰⾕时段配置
+*/
+record TouPeriodDTO(TouState state, LocalTime startTime, LocalTime endTime) {
+}
+/**
+* 峰⾕电价配置
+*/
+record TouPriceDTO(TouState state, Double price) {
+}
+/**
+* 单⽇峰⾕时段与电价配置
+*/
+record TouDTO(LocalDate date, Set<TouPeriodDTO> periods, Set<TouPriceDTO>
+prices) {
+}
+
+/**
+* 充电宝的充放指令
+*/
+@Data
+class DispatchCommand {
+      private LocalTime startTime;
+      private LocalTime endTime;
+      // 正数表⽰充电，负数表⽰放电
+      private Double power;
+}
+
+/**
+* 设备参数
+*/
+record DeviceSpecDTO(Double capacity, Double standardPower) {
+}
+
+/**
+* 充放调度的上下⽂
+*/
+record DispatchContext(TouDTO touDTO, DeviceSpecDTO deviceSpecDTO) {
+}
+
+```
+请实现接⼝，以得到单⽇最⼤收益的充放指令列表。
+`List<DispatchCommand> dispatch(DispatchContext context);`
+
+- 提⽰⼀：以「输出⼀天的充放计划」为⽬标，不需要考虑⻓周期的优化策略。
+- 提⽰⼆：⽆需考虑设备运⾏的损耗。
+- 提⽰三：⽆需考虑设备过充（设备满电后继续充电）和过放（设备亏电后继续放电）的问题。
+输出结果的样例：
+
+```json
+DispatchCommand(startTime=00:00, endTime=06:00, activePower=50)
+DispatchCommand(startTime=12:00, endTime=14:00, activePower=-50)
+DispatchCommand(startTime=15:00, endTime=18:00, activePower=50)
+DispatchCommand(startTime=18:00, endTime=21:00, activePower=-50)
+```
+
+### ⚡ 充放电调度
+
+```java
+    public List<DispatchCommand> dispatch(DispatchContext context) {
+        List<DispatchCommand> commands = new ArrayList<>();
+        TouDTO touDTO = context.touDTO();
+        DeviceSpecDTO deviceSpecDTO = context.deviceSpecDTO();
+        Double standardPower = deviceSpecDTO.standardPower();
+
+        // 解析峰谷时段
+        Set<TouPeriodDTO> periods = touDTO.periods();
+        // 解析电价
+        Set<TouPriceDTO> prices = touDTO.prices();
+
+        // 找到最低电价的时间段（充电）
+        TouPeriodDTO chargePeriod = null;
+        double minPrice = Double.MAX_VALUE;
+        for (TouPeriodDTO period : periods) {
+            for (TouPriceDTO price : prices) {
+                if (period.state().equals(price.state()) && price.price() < minPrice) {
+                    minPrice = price.price();
+                    chargePeriod = period;
+                }
+            }
+        }
+
+        // 找到最高电价的时间段（放电）
+        TouPeriodDTO dischargePeriod = null;
+        double maxPrice = Double.MIN_VALUE;
+        for (TouPeriodDTO period : periods) {
+            for (TouPriceDTO price : prices) {
+                if (period.state().equals(price.state()) && price.price() > maxPrice) {
+                    maxPrice = price.price();
+                    dischargePeriod = period;
+                }
+            }
+        }
+
+        // 生成充电指令
+        if (chargePeriod != null) {
+            commands.add(new DispatchCommand(chargePeriod.startTime(), chargePeriod.endTime(), standardPower));
+        }
+
+        // 生成放电指令
+        if (dischargePeriod != null) {
+            commands.add(new DispatchCommand(dischargePeriod.startTime(), dischargePeriod.endTime(), -standardPower));
+        }
+
+        return commands;
+    }
+```
+
+### 📋 使用方法:
+
+``` java
+public static void main(String[] args) {
+        // 示例数据
+        Set<TouPeriodDTO> periods = Set.of(
+                new TouPeriodDTO(TouState.OFF_PEAK, LocalTime.of(0, 0), LocalTime.of(6, 0)),
+                new TouPeriodDTO(TouState.SHOULDER, LocalTime.of(6, 0), LocalTime.of(8, 0)),
+                new TouPeriodDTO(TouState.PEAK, LocalTime.of(8, 0), LocalTime.of(12, 0)),
+                new TouPeriodDTO(TouState.CRITICAL_PEAK, LocalTime.of(12, 0), LocalTime.of(14, 0)),
+                new TouPeriodDTO(TouState.PEAK, LocalTime.of(14, 0), LocalTime.of(15, 0)),
+                new TouPeriodDTO(TouState.SHOULDER, LocalTime.of(15, 0), LocalTime.of(18, 0)),
+                new TouPeriodDTO(TouState.PEAK, LocalTime.of(18, 0), LocalTime.of(21, 0)),
+                new TouPeriodDTO(TouState.SHOULDER, LocalTime.of(21, 0), LocalTime.of(22, 0)),
+                new TouPeriodDTO(TouState.OFF_PEAK, LocalTime.of(22, 0), LocalTime.of(0, 0))
+        );
+
+        Set<TouPriceDTO> prices = Set.of(
+                new TouPriceDTO(TouState.OFF_PEAK, 0.31),
+                new TouPriceDTO(TouState.SHOULDER, 0.76),
+                new TouPriceDTO(TouState.PEAK, 0.92),
+                new TouPriceDTO(TouState.CRITICAL_PEAK, 1.20)
+        );
+
+        TouDTO touDTO = new TouDTO(LocalDate.now(), periods, prices);
+        DeviceSpecDTO deviceSpecDTO = new DeviceSpecDTO(100.0, 50.0);
+        DispatchContext context = new DispatchContext(touDTO, deviceSpecDTO);
+
+        List<DispatchCommand> commands = dispatch(context);
+        for (DispatchCommand command : commands) {
+            System.out.println(command);
+        }
+    }
+```
+
+### 💡 设计思路
+
+- 解析时段和电价信息：将给定的峰谷时段和电价信息解析出来，以便后续处理。
+- 确定充电和放电的时段：基于电价信息，选择电价最低的时段充电，电价最高的时段放电。
+- 生成调度指令：根据充电宝的标准功率和容量，生成对应的充放电调度指令。
+- 解析输入数据：从 DispatchContext 中获取峰谷时段配置和电价配置。
+- 选择充电和放电时段：找到最低电价的时段用于充电，最高电价的时段用于放电。
+- 生成调度指令：根据标准功率生成充电和放电指令。
+
+## 📝 总结：
+
+- 通过泛型和函数式接口实现了自动分页的方法，确保适用各种不同的查询类型。
+- 分析并实现了充电宝在单日内的最佳充放电策略，最大化收益。
+
+## 📌 关键点：
+
+- 泛型编程
+- 分页处理逻辑
+- 函数式接口的使用
+- 充放电调度策略的设计
+- 数据解析与处理

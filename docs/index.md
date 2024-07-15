@@ -4,7 +4,7 @@ pageType: home
 hero:
   name: My-Web3
   text: Personal learning web3 record.
-  tagline: 一定要实现Web3远程
+  tagline: 学海无涯
   actions:
     - theme: brand
       text: 开始

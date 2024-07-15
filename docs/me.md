@@ -1,12 +1,12 @@
 # Hello, I'm Andrew Wang 👋
 
 ## About Me 🌐
-I'm a passionate **Web3 Developer** with a love for decentralized technologies and blockchain innovations. 
+I'm a passionate **Web3** and **Web2** Developer with a deep love for decentralized technologies and blockchain innovations. My expertise extends to Web2 technologies, including distributed systems, multithreading, and cloud-native development.
 
 ## Skills & Technologies 🚀
-- **Languages**: Solidity, JavaScript, Python
-- **Frameworks & Libraries**: Truffle, Hardhat, Web3.js, Ethers.js
-- **Tools**: Remix, Ganache, Metamask
+- **Languages**: Solidity, JavaScript, Python, Java, Go
+- **Frameworks & Libraries**: Truffle, Hardhat, Web3.js, Ethers.js, Spring, Gin,Go-Zero
+- **Tools**: Remix, Ganache, Metamask,IDEA
 - **Blockchain Platforms**: Ethereum, Binance Smart Chain, Polygon
 
 ## Projects 💡
@@ -19,15 +19,14 @@ I'm a passionate **Web3 Developer** with a love for decentralized technologies a
 - **Technologies Used**: Solidity, Hardhat, Ethers.js
 
 ## Community & Contributions 🌍
-- **Open Source Contributions**: Links to GitHub projects or contributions.
-- **Blogs & Articles**: Links to your articles on Medium or other platforms.
-- **Talks & Workshops**: Information about any talks or workshops you've conducted.
+- **Open Source Contributions**: 
+- **Blogs & Articles**: 
+- **Talks & Workshops**: 
 
 ## Let's Connect 🤝
-- **GitHub**: [Your GitHub Profile]
-- **Twitter**: [Your Twitter Handle]
-- **LinkedIn**: [Your LinkedIn Profile]
-
+- **GitHub**: [My GitHub Profile](https://github.com/AuroraPixel)
+- **Twitter**: 
+- **LinkedIn**: 
 ## Fun Facts 🎉
 - **Hobbies**: Mention your hobbies or interests outside of coding.
 - **Favorite Quote**: Share a quote that inspires you.
