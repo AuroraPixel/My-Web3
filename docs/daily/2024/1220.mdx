@@ -1,0 +1,89 @@
+import Logbook from '../../componet/Logbook';
+import VocabCard from '../../componet/VocabCard';
+
+# 📅 12月20号
+
+## 今日任务清单 ✨
+
+<Logbook>
+      <Logbook.TaskItem isComplete={true}>💼 公司日程</Logbook.TaskItem>
+      <Logbook.TaskItem isComplete={false}>📚 学习solidity基础第四章</Logbook.TaskItem>
+      <Logbook.TaskItem isComplete={false}>💰 BitCoin And Cryptocurrency 学习</Logbook.TaskItem>
+</Logbook>
+
+## 🔗 BitCoin And Cryptocurrency
+
+### 🔐 区块链中的哈希算法
+
+> 区块链技术的基石之一就是密码学哈希函数。通过哈希算法，我们可以实现数据的完整性验证、区块的链接以及工作量证明机制。
+
+#### 🎯 哈希函数的核心特性
+
+1. **单向性（One-way）** 🔒
+   - ✅ 容易计算正向哈希值
+   - ❌ 实际不可能从哈希值反推原始数据
+   - 🛡️ 保证了数据的安全性
+
+2. **确定性（Deterministic）** 🎯
+   - ✅ 相同的输入永远产生相同的输出
+   - 🔄 保证了系统的可预测性和一致性
+
+3. **雪崩效应（Avalanche Effect）** ❄️
+   - 🔄 输入的微小变化导致输出的巨大差异
+   - 🔍 有助于检测数据是否被���改
+
+4. **抗碰撞性（Collision Resistance）** 🛡️
+   - 🔒 难以找到产生相同哈希值的两个不同输入
+   - ✨ 确保了哈希值的唯一性
+
+#### 💡 区块链中的应用场景
+
+1. **区块链接** ⛓️
+   - 每个区块包含前一个区块的哈希值
+   - 形成不可篡改的链式结构
+   - 任何区块的修改都会影响后续所有区块
+
+2. **交易验证** ✅
+   - 使用Merkle树组织交易数据
+   - 快速验证交易是否被包含在区块中
+   - 支持轻节点验证
+
+3. **挖矿过程** ⛏️
+   - 矿工通过改变nonce值
+   - 寻找满足难度要求的哈希值
+   - 构成了工作量证明机制
+
+4. **地址生成** 🏠
+   - 通过对公钥进行哈希运算
+   - 生成用户的区块链地址
+   - 提供了身份的匿名性
+
+#### 📊 主流哈希算法对比
+
+| 算法    | 输出长度 | 安全性 | 应用场景 |
+|:-------:|:--------:|:------:|:--------:|
+| MD5     | 128位    | 🔴 低  | 不推荐使用 |
+| SHA-1   | 160位    | 🟡 中  | 逐渐淘汰 |
+| SHA-256 | 256位    | 🟢 高  | 比特币主用 |
+| SHA-512 | 512位    | 🟢 高  | 高安全场景 |
+
+---
+
+## 📝 英语单词
+
+<VocabCard items={[
+  { en: "collision resistance", zh: "碰撞抵抗" },
+  { en: "cryptographic hash function", zh: "密码哈希函数" },
+  { en: "avalanche effect", zh: "雪崩效应" },
+  { en: "deterministic", zh: "确定性" },
+  { en: "one-way", zh: "单向性" },
+  { en: "collision", zh: "碰撞" },
+  { en: "hash value", zh: "哈希值" },
+  { en: "nonce", zh: "随机数" },
+  { en: "Merkle tree", zh: "默克尔树" },
+  { en: "blockchain", zh: "区块链" },
+  { en: "signature", zh: "签名" },
+  { en: "transaction", zh: "交易" },
+  { en: "hash function", zh: "哈希函数" },
+  { en: "hash algorithm", zh: "哈希算法" }
+]} />

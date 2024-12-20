@@ -1,0 +1,71 @@
+.vocab-container {
+    background: var(--ifm-card-background-color);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border: 1px solid var(--ifm-color-emphasis-200);
+  }
+  
+  .vocab-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .vocab-header h3 {
+    margin: 0;
+    font-weight: 500;
+    color: var(--ifm-color-emphasis-600);
+  }
+  
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .vocab-item {
+    padding: 1rem;
+    background: var(--ifm-background-surface-color);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .vocab-item:hover {
+    transform: translateY(-2px);
+    background: var(--ifm-color-emphasis-100);
+  }
+  
+  .english {
+    color: var(--ifm-font-color-base);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  
+  .chinese {
+    color: #64748b;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .speaker-icon {
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    opacity: 0.5;
+    vertical-align: middle;
+  }
+  
+  .vocab-item:hover .speaker-icon {
+    opacity: 1;
+  }
+  
+  .vocab-item:focus {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+  }
