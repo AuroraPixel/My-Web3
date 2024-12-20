@@ -1,0 +1,105 @@
+import Logbook from '../../componet/Logbook';
+import VocabCard from '../../componet/VocabCard';
+import TreeNode from '../../componet/TreeView';
+
+# 📅 12月21号
+
+## 今日任务清单 ✨
+
+<Logbook>
+      <Logbook.TaskItem isComplete={false}>📚 学习solidity基础第五章</Logbook.TaskItem>
+      <Logbook.TaskItem isComplete={false}>💰 BitCoin And Cryptocurrency 学习</Logbook.TaskItem>
+</Logbook>
+
+## 🔗 BitCoin And Cryptocurrency
+
+### 🔐 区块链数据结构
+
+#### 📦 区块结构概述
+
+区块（Block）是区块链中的基本单位，每个区块主要包含两个部分：
+
+1. **区块头（Block Header）** 📋
+   - **版本号**：标识区块版本，用于追踪协议和软件升级
+   - **前区块哈希**：链接到前一个区块的哈希值
+   - **默克尔根**：所有交易的哈希树根节点
+   - **时间戳**：区块创建时间
+   - **难度目标**：当前区块的难度值
+   - **随机数**：用于工作量证明的计数器
+
+2. **区块体（Block Body）** 📝
+   - 包含完整的交易列表
+   - 第一笔交易为铸币交易（Coinbase Transaction）
+
+#### 🌲 默克尔树结
+
+<TreeNode label="Root Hash\n0xabc...">
+  <TreeNode label="Hash(AB)\n0x123...">
+    <TreeNode label="Hash(A)\n0x456...">
+      <TreeNode label="Trans_A\n1.5 BTC" />
+    </TreeNode>
+    <TreeNode label="Hash(B)\n0x789...">
+      <TreeNode label="Trans_B\n0.5 BTC" />
+    </TreeNode>
+  </TreeNode>
+  <TreeNode label="Hash(CD)\n0xdef...">
+    <TreeNode label="Hash(C)\n0xabc...">
+      <TreeNode label="Trans_C\n2.0 BTC" />
+    </TreeNode>
+    <TreeNode label="Hash(D)\n0xdef...">
+      <TreeNode label="Trans_D\n1.0 BTC" />
+    </TreeNode>
+  </TreeNode>
+</TreeNode>
+
+1. **特点** ✨
+   - 二叉树结构
+   - 每个叶子节点是单个交易的哈希值
+   - 非叶子节点是其子节点的哈希值
+   - 根节点包含所有交易信息的摘要
+
+2. **优势** 💪
+   - 快速验证交易是否包含在区块中
+   - 支持轻节点验证
+   - 空间效率高，仅需存储根哈希
+
+#### 🔄 区块链接方式
+
+<TreeNode label="Block N+1 (区块头)&#10;Version: 2&#10;PrevHash: 0xabc...&#10;MerkleRoot: 0x123...&#10;Timestamp: 2024-01-21&#10;Difficulty: 5&#10;Nonce: 1234">
+  <TreeNode label="Block N (区块头)&#10;Version: 2&#10;PrevHash: 0x789...&#10;MerkleRoot: 0x456...&#10;Timestamp: 2024-01-20&#10;Difficulty: 5&#10;Nonce: 5678">
+    <TreeNode label="Block N-1 (区块头)&#10;Version: 2&#10;PrevHash: 0x456...&#10;MerkleRoot: 0x789...&#10;Timestamp: 2024-01-19&#10;Difficulty: 5&#10;Nonce: 9012" />
+  </TreeNode>
+</TreeNode>
+
+1. **链接机制** 🔗
+   - 每个区块通过引用前一个区块的哈希值相连
+   - 形成不可篡改的链式结构
+   - 任何区块的修改都会导致后续区块的哈希值改变
+
+2. **安全特性** 🛡️
+   - 数据不可篡改
+   - 历史可追溯
+   - 分布式共识
+
+## 📝 英语单词
+
+<VocabCard items={[
+  { en: "block header", zh: "区块头" },
+  { en: "block body", zh: "区块体" },
+  { en: "merkle root", zh: "默克尔根" },
+  { en: "timestamp", zh: "时间戳" },
+  { en: "previous hash", zh: "前区块哈希" },
+  { en: "difficulty target", zh: "难度目标" },
+  { en: "version number", zh: "版本号" },
+  { en: "coinbase transaction", zh: "铸币交易" },
+  { en: "binary tree", zh: "二叉树" },
+  { en: "leaf node", zh: "叶子节点" },
+  { en: "root node", zh: "根节点" },
+  { en: "light node", zh: "轻节点" },
+  { en: "block verification", zh: "区块验证" },
+  { en: "chain structure", zh: "链式结构" },
+  { en: "distributed consensus", zh: "分布式共识" },
+]} />
+
+
+
