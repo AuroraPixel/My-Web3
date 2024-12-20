@@ -69,3 +69,14 @@
     outline: 2px solid var(--ifm-color-primary);
     outline-offset: 2px;
   }
+  
+  .speech-rate-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+  
+  .speech-rate-control input[type="range"] {
+    width: 100px;
+  }
