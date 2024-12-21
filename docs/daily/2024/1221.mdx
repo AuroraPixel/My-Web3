@@ -15,71 +15,57 @@ import TreeNode from '../../componet/TreeView';
 
 ### 🔐 区块链数据结构
 
-#### 📦 区块结构概述
+#### 1️⃣ 哈希指针与数据结构
+- **哈希指针特点**
+  - 不仅存储结构体的地址
+  - 还保存了结构体的哈希值
+  - 确保数据的完整性
 
-区块（Block）是区块链中的基本单位，每个区块主要包含两个部分：
+#### 2️⃣ Merkle树结构
+1. **基本概念**
+   - 使用哈希指针连接区块
+   - 提供"Merkle证明"
+   - 使轻节点能够验证交易
 
-1. **区块头（Block Header）** 📋
-   - **版本号**：标识区块版本，用于追踪协议和软件升级
-   - **前区块哈希**：链接到前一个区块的哈希值
-   - **默克尔根**：所有交易的哈希树根节点
-   - **时间戳**：区块创建时间
-   - **难度目标**：当前区块的难度值
-   - **随机数**：用于工作量证明的计数器
-
-2. **区块体（Block Body）** 📝
-   - 包含完整的交易列表
-   - 第一笔交易为铸币交易（Coinbase Transaction）
-
-#### 🌲 默克尔树结
-
-<TreeNode label="Root Hash\n0xabc...">
-  <TreeNode label="Hash(AB)\n0x123...">
-    <TreeNode label="Hash(A)\n0x456...">
-      <TreeNode label="Trans_A\n1.5 BTC" />
-    </TreeNode>
-    <TreeNode label="Hash(B)\n0x789...">
-      <TreeNode label="Trans_B\n0.5 BTC" />
-    </TreeNode>
-  </TreeNode>
-  <TreeNode label="Hash(CD)\n0xdef...">
-    <TreeNode label="Hash(C)\n0xabc...">
-      <TreeNode label="Trans_C\n2.0 BTC" />
-    </TreeNode>
-    <TreeNode label="Hash(D)\n0xdef...">
-      <TreeNode label="Trans_D\n1.0 BTC" />
-    </TreeNode>
-  </TreeNode>
-</TreeNode>
-
-1. **特点** ✨
+2. **结构特点** ✨
    - 二叉树结构
-   - 每个叶子节点是单个交易的哈希值
-   - 非叶子节点是其子节点的哈希值
-   - 根节点包含所有交易信息的摘要
+   - 叶子节点：单个交易的哈希值
+   - 非叶子节点：子节点的哈希值
+   - 根节点：所有交易信息的摘要
 
-2. **优势** 💪
-   - 快速验证交易是否包含在区块中
-   - 支持轻节点验证
-   - 空间效率高，仅需存储根哈希
-
-#### 🔄 区块链接方式
-
-<TreeNode label="Block N+1 (区块头)&#10;Version: 2&#10;PrevHash: 0xabc...&#10;MerkleRoot: 0x123...&#10;Timestamp: 2024-01-21&#10;Difficulty: 5&#10;Nonce: 1234">
-  <TreeNode label="Block N (区块头)&#10;Version: 2&#10;PrevHash: 0x789...&#10;MerkleRoot: 0x456...&#10;Timestamp: 2024-01-20&#10;Difficulty: 5&#10;Nonce: 5678">
-    <TreeNode label="Block N-1 (区块头)&#10;Version: 2&#10;PrevHash: 0x456...&#10;MerkleRoot: 0x789...&#10;Timestamp: 2024-01-19&#10;Difficulty: 5&#10;Nonce: 9012" />
+<TreeNode label="区块链结构">
+  <TreeNode label="轻节点">
+    <TreeNode label="仅区块头\n80字节/块" />
+    <TreeNode label="Merkle路径验证" />
+  </TreeNode>
+  <TreeNode label="全节点">
+    <TreeNode label="完整区块数据\n数百GB" />
+    <TreeNode label="完整验证能力" />
   </TreeNode>
 </TreeNode>
 
-1. **链接机制** 🔗
-   - 每个区块通过引用前一个区块的哈希值相连
-   - 形成不可篡改的链式结构
-   - 任何区块的修改都会导致后续区块的哈希值改变
+#### 3️⃣ 去中心化验证
+1. **轻节点验证 (SPV)** 📱
+   - 通过Merkle路径验证
+   - 验证交易存在性
+   - 计算出交易所在区块的根哈希值
 
-2. **安全特性** 🛡️
-   - 数据不可篡改
-   - 历史可追溯
-   - 分布式共识
+2. **全节点验证** 💻
+   - 独立存储完整数据
+   - 提供验证服务
+   - 确保交易真实性
+
+#### 4️⃣ Moral Proof验证
+- 清洁点通过请求至节点获取特定交易
+- 计算出交易所在区块的根哈希值
+- 验证交易确实存在于区块中
+- mogo proof验证确保交易不被篡改
+
+#### 5️⃣ 复杂度与安全性
+- 复杂度是对数级别
+- 证明方法高效
+- 哈希指针用于无环数据结构
+- 循环链表存在问题
 
 ## 📝 英语单词
 
@@ -99,6 +85,12 @@ import TreeNode from '../../componet/TreeView';
   { en: "block verification", zh: "区块验证" },
   { en: "chain structure", zh: "链式结构" },
   { en: "distributed consensus", zh: "分布式共识" },
+  { en: "SPV (Simplified Payment Verification)", zh: "简单支付验证" },
+  { en: "full node", zh: "全节点" },
+  { en: "light node", zh: "轻节点" },
+  { en: "block header chain", zh: "区块头链" },
+  { en: "merkle path", zh: "默克尔路径" },
+  { en: "verification service", zh: "验证服务" },
 ]} />
 
 
