@@ -13,5 +13,10 @@
     "text": "Me",
     "link": "/me/",
     "activeMatch": "/me/"
+  },
+  {
+    "text": "Projects",
+    "link": "/projects/plan/LangBattle",
+    "activeMatch": "/projects/"
   }
 ]

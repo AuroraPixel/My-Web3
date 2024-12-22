@@ -1,0 +1,9 @@
+[
+    {
+        "type": "dir",
+        "name": "plan",
+        "label": "plan",
+        "collapsible": true,
+        "collapsed": true
+    }
+]
